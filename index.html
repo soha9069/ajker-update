@@ -110,7 +110,7 @@
             background: var(--secondary);
         }
 
-        /* ব্রেকিং নিউজ */
+        /* ব্রেকিং নিউজ - সমস্যা সমাধান করা হয়েছে */
         .breaking-news {
             background: var(--secondary);
             color: white;
@@ -136,6 +136,7 @@
             overflow: hidden;
             position: relative;
             height: 30px;
+            width: 100%; /* সম্পূর্ণ প্রস্থ দখল */
         }
 
         .breaking-text {
@@ -144,6 +145,9 @@
             animation: scrollText 20s linear infinite;
             white-space: nowrap;
             font-size: 18px;
+            color: white; /* সাদা রং নিশ্চিত করুন */
+            font-weight: 500;
+            padding: 2px 0; /* ভালো দেখানোর জন্য */
         }
 
         @keyframes scrollText {
@@ -421,7 +425,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--accent);
+            color: white;
             padding-left: 5px;
         }
 
@@ -504,6 +508,10 @@
             .featured-grid, .news-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .breaking-text {
+                font-size: 16px; /* ছোট স্ক্রিনে ফন্ট সাইজ */
+            }
         }
     </style>
 </head>
@@ -535,7 +543,7 @@
     </header>
 
     <div class="container">
-        <!-- ব্রেকিং নিউজ -->
+        <!-- ব্রেকিং নিউজ - কালার সমস্যা সমাধান করা হয়েছে -->
         <div class="breaking-news">
             <div class="breaking-label">ব্রেকিং নিউজ</div>
             <div class="breaking-content">
@@ -762,20 +770,29 @@
             <i class="fas fa-calendar-alt"></i> ${dateString} - ${dayName}
         `;
         
-        // ব্রেকিং নিউজ স্ক্রলিং এনিমেশন
+        // ব্রেকিং নিউজ স্ক্রলিং এনিমেশন উন্নত
         const breakingText = document.querySelector('.breaking-text');
         const textWidth = breakingText.scrollWidth;
-        breakingText.style.width = `${textWidth}px`;
+        const containerWidth = document.querySelector('.breaking-content').offsetWidth;
         
-        // মোবাইল মেনু টগল
-        const menuBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('.nav-menu');
+        // টেক্সটের দৈর্ঘ্য অনুযায়ী এনিমেশন স্পিড
+        const animationDuration = Math.max(20, textWidth / 50);
         
-        if(menuBtn) {
-            menuBtn.addEventListener('click', () => {
-                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
-            });
-        }
+        // CSS ভ্যারিয়েবল আপডেট
+        document.documentElement.style.setProperty('--animation-duration', `${animationDuration}s`);
+        
+        // নতুন এনিমেশন স্টাইল
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes scrollText {
+                0% { transform: translateX(100%); }
+                100% { transform: translateX(-${textWidth + containerWidth}px); }
+            }
+            .breaking-text {
+                animation: scrollText var(--animation-duration) linear infinite;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
