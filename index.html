@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আজকের আপডেট - বাংলাদেশের শীর্ষ সংবাদ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        :root {
+            --primary: #006a4e; /* বাংলাদেশের সবুজ */
+            --secondary: #f42a41; /* লাল */
+            --accent: #ffd700; /* সোনালী */
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --border: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* হেডার স্টাইল */
+        .header {
+            background: linear-gradient(to right, var(--primary), #00563a);
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-left: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .logo-icon {
+            font-size: 36px;
+            color: var(--accent);
+        }
+
+        .date-display {
+            font-size: 16px;
+            opacity: 0.9;
+            background: rgba(0,0,0,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        /* নেভিগেশন */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li {
+            margin: 0 5px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-menu a.active {
+            background: var(--secondary);
+        }
+
+        /* ব্রেকিং নিউজ */
+        .breaking-news {
+            background: var(--secondary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .breaking-label {
+            background: var(--dark);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-left: 15px;
+            white-space: nowrap;
+            font-size: 18px;
+        }
+
+        .breaking-content {
+            overflow: hidden;
+            position: relative;
+            height: 30px;
+        }
+
+        .breaking-text {
+            position: absolute;
+            width: 100%;
+            animation: scrollText 20s linear infinite;
+            white-space: nowrap;
+            font-size: 18px;
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* ফিচার্ড নিউজ */
+        .section-title {
+            position: relative;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            font-size: 28px;
+            color: var(--dark);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .featured-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 14px;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .card-excerpt {
+            color: var(--gray);
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--gray);
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+
+        /* মেইন কন্টেন্ট */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* নিউজ গ্রিড */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .news-card {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .news-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .news-content {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .news-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* সাইডবার */
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .popular-list {
+            list-style: none;
+        }
+
+        .popular-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .popular-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .popular-number {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .popular-content {
+            flex: 1;
+        }
+
+        .popular-title {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .popular-meta {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* আবহাওয়া উইজেট */
+        .weather-widget {
+            background: linear-gradient(to right, #1a2a6c, #b21f1f, #1a2a6c);
+            color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .weather-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .weather-location {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .weather-icon {
+            font-size: 50px;
+            margin: 15px 0;
+            color: var(--accent);
+        }
+
+        .weather-temp {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .weather-desc {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .weather-details {
+            display: flex;
+            justify-content: space-around;
+            font-size: 16px;
+        }
+
+        /* ফুটার */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h3 {
+            position: relative;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            font-size: 22px;
+            color: var(--accent);
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 17px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        /* রেসপন্সিভ ডিজাইন */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+            
+            .date-display {
+                margin: 15px 0;
+            }
+            
+            .breaking-news {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .breaking-label {
+                margin-bottom: 10px;
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-grid, .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- হেডার সেকশন -->
+    <header class="header">
+        <div class="container">
+            <div class="header-container">
+                <div class="logo">
+                    <i class="fas fa-newspaper logo-icon"></i>
+                    <h1>আজকের আপডেট</h1>
+                </div>
+                <div class="date-display">
+                    <i class="fas fa-calendar-alt"></i> ১৮ জুন, ২০২৫ - বুধবার
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#" class="active">হোম</a></li>
+                <li><a href="#">জাতীয়</a></li>
+                <li><a href="#">রাজনীতি</a></li>
+                <li><a href="#">অর্থনীতি</a></li>
+                <li><a href="#">খেলাধুলা</a></li>
+                <li><a href="#">বিনোদন</a></li>
+                <li><a href="#">প্রযুক্তি</a></li>
+                <li><a href="#">আন্তর্জাতিক</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- ব্রেকিং নিউজ -->
+        <div class="breaking-news">
+            <div class="breaking-label">ব্রেকিং নিউজ</div>
+            <div class="breaking-content">
+                <div class="breaking-text">
+                    বাংলাদেশে নতুন অর্থনৈতিক নীতি ঘোষণা: প্রধানমন্ত্রী শেখ হাসিনা আজ জাতির উদ্দেশ্যে গুরুত্বপূর্ণ ভাষণ দিচ্ছেন। সরকার নতুন বিনিয়োগ প্যাকেজ ঘোষণা করেছে যা দেশের অর্থনীতিতে গতি আনবে বলে আশা করা হচ্ছে।
+                </div>
+            </div>
+        </div>
+
+        <!-- শীর্ষ সংবাদ -->
+        <h2 class="section-title">শীর্ষ সংবাদ</h2>
+        <div class="featured-grid">
+            <div class="featured-card">
+                <img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="রাজনীতি" class="card-img">
+                <div class="card-content">
+                    <span class="category-tag">রাজনীতি</span>
+                    <h3 class="card-title">জাতীয় নির্বাচনের তারিখ ঘোষণা: জানুয়ারিতে ভোট</h3>
+                    <p class="card-excerpt">নির্বাচন কমিশন আগামী জানুয়ারিতে জাতীয় সংসদ নির্বাচনের তারিখ ঘোষণা করেছে। সব রাজনৈতিক দলকে নির্বাচনে অংশগ্রহণের আহ্বান জানানো হয়েছে।</p>
+                    <div class="card-meta">
+                        <span><i class="far fa-clock"></i> ২ ঘন্টা আগে</span>
+                        <span><i class="far fa-eye"></i> ১৫.২k দেখা</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="featured-card">
+                <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="অর্থনীতি" class="card-img">
+                <div class="card-content">
+                    <span class="category-tag">অর্থনীতি</span>
+                    <h3 class="card-title">ডলারের বিপরীতে টাকার মান বেড়েছে: রেমিট্যান্স প্রবাহে রেকর্ড</h3>
+                    <p class="card-excerpt">বৈদেশিক রেমিট্যান্স প্রবাহে রেকর্ড অর্জনের ফলে ডলারের বিপরীতে টাকার মান বেড়েছে। কেন্দ্রীয় ব্যাংক এই অর্জনকে স্বাগত জানিয়েছে।</p>
+                    <div class="card-meta">
+                        <span><i class="far fa-clock"></i> ৪ ঘন্টা আগে</span>
+                        <span><i class="far fa-eye"></i> ১০.৭k দেখা</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="featured-card">
+                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="খেলাধুলা" class="card-img">
+                <div class="card-content">
+                    <span class="category-tag">খেলাধুলা</span>
+                    <h3 class="card-title">এশিয়া কাপ ক্রিকেট: বাংলাদেশ দল চূড়ান্ত সদস্য ঘোষণা</h3>
+                    <p class="card-excerpt">আসন্ন এশিয়া কাপ ক্রিকেট টুর্নামেন্টের জন্য বাংলাদেশ ক্রিকেট দল চূড়ান্ত সদস্য ঘোষণা করেছে। দলে নতুন মুখ হিসেবে যুক্ত হয়েছেন দুই তরুণ খেলোয়াড়।</p>
+                    <div class="card-meta">
+                        <span><i class="far fa-clock"></i> ৬ ঘন্টা আগে</span>
+                        <span><i class="far fa-eye"></i> ২২.৫k দেখা</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- মেইন কন্টেন্ট এরিয়া -->
+        <div class="main-content">
+            <div class="content-area">
+                <h2 class="section-title">সর্বশেষ সংবাদ</h2>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <img src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="সংবাদ" class="news-img">
+                        <div class="news-content">
+                            <h4 class="news-title">পদ্মা সেতুতে রেল সংযোগ চালু: যাত্রা শুরু হচ্ছে আগামী মাসে</h4>
+                            <div class="card-meta">
+                                <span><i class="far fa-clock"></i> ১ ঘন্টা আগে</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="সংবাদ" class="news-img">
+                        <div class="news-content">
+                            <h4 class="news-title">টেকনোলজি সেক্টরে নতুন বিনিয়োগ: ৫০০০ চাকরির সুযোগ</h4>
+                            <div class="card-meta">
+                                <span><i class="far fa-clock"></i> ৩ ঘন্টা আগে</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="সংবাদ" class="news-img">
+                        <div class="news-content">
+                            <h4 class="news-title">নতুন গাড়ির দাম কমলো: সরকার শুল্ক হ্রাসের সিদ্ধান্ত নিয়েছে</h4>
+                            <div class="card-meta">
+                                <span><i class="far fa-clock"></i> ৫ ঘন্টা আগে</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="সংবাদ" class="news-img">
+                        <div class="news-content">
+                            <h4 class="news-title">স্বাস্থ্য মন্ত্রণালয়ের নতুন প্রকল্প: প্রতিটি উপজেলায় মডেল হাসপাতাল</h4>
+                            <div class="card-meta">
+                                <span><i class="far fa-clock"></i> ৭ ঘন্টা আগে</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- সাইডবার -->
+            <div class="sidebar">
+                <h3 class="sidebar-title">জনপ্রিয় সংবাদ</h3>
+                <ul class="popular-list">
+                    <li class="popular-item">
+                        <div class="popular-number">১</div>
+                        <div class="popular-content">
+                            <h4 class="popular-title">মেট্রোরেল দ্বিতীয় ধাপের কাজ শুরু: উত্তরা থেকে মতিঝিল পর্যন্ত</h4>
+                            <div class="popular-meta">১৫k দেখা • ৩ ঘন্টা আগে</div>
+                        </div>
+                    </li>
+                    <li class="popular-item">
+                        <div class="popular-number">২</div>
+                        <div class="popular-content">
+                            <h4 class="popular-title">বাজেট ২০২৫: আয়কর ছাড়ের সীমা বাড়ানোর দাবি</h4>
+                            <div class="popular-meta">১২k দেখা • ৫ ঘন্টা আগে</div>
+                        </div>
+                    </li>
+                    <li class="popular-item">
+                        <div class="popular-number">৩</div>
+                        <div class="popular-content">
+                            <h4 class="popular-title">বাংলাদেশি বিজ্ঞানীর নতুন আবিষ্কার: ক্যান্সার চিকিৎসায় নতুন সম্ভাবনা</h4>
+                            <div class="popular-meta">১০k দেখা • ৮ ঘন্টা আগে</div>
+                        </div>
+                    </li>
+                    <li class="popular-item">
+                        <div class="popular-number">৪</div>
+                        <div class="popular-content">
+                            <h4 class="popular-title">শিক্ষা বোর্ডের নতুন সিদ্ধান্ত: এইচএসসি পরীক্ষার নম্বর বণ্টন পদ্ধতি পরিবর্তন</h4>
+                            <div class="popular-meta">৯k দেখা • ১০ ঘন্টা আগে</div>
+                        </div>
+                    </li>
+                    <li class="popular-item">
+                        <div class="popular-number">৫</div>
+                        <div class="popular-content">
+                            <h4 class="popular-title">বাংলাদেশে পর্যটন শিল্পে রেকর্ড প্রবৃদ্ধি: নতুন দিগন্তের সূচনা</h4>
+                            <div class="popular-meta">৮k দেখা • ১২ ঘন্টা আগে</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- আবহাওয়া উইজেট -->
+                <div class="weather-widget">
+                    <div class="weather-header">
+                        <div class="weather-location">ঢাকা, বাংলাদেশ</div>
+                        <div class="weather-date">১৮ জুন, ২০২৫</div>
+                    </div>
+                    <div class="weather-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="weather-temp">৩২°C</div>
+                    <div class="weather-desc">রৌদ্রজ্জ্বল দিন</div>
+                    <div class="weather-details">
+                        <div><i class="fas fa-wind"></i> ৮ কিমি/ঘণ্টা</div>
+                        <div><i class="fas fa-tint"></i> ৬৫%</div>
+                        <div><i class="fas fa-compress-alt"></i> ১০১২ hPa</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ফুটার -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>আজকের আপডেট</h3>
+                    <p>বাংলাদেশের শীর্ষ ডিজিটাল নিউজ প্ল্যাটফর্ম যেখানে আপনি পাবেন সময়োপযোগী, নির্ভুল এবং ব্যাপক সংবাদ কভারেজ।</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>গুরুত্বপূর্ণ লিংক</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#">যোগাযোগ</a></li>
+                        <li><a href="#">গোপনীয়তা নীতি</a></li>
+                        <li><a href="#">ব্যবহারের শর্তাবলী</a></li>
+                        <li><a href="#">বিজ্ঞাপন দিন</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>ক্যাটাগরি</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">জাতীয়</a></li>
+                        <li><a href="#">রাজনীতি</a></li>
+                        <li><a href="#">অর্থনীতি</a></li>
+                        <li><a href="#">খেলাধুলা</a></li>
+                        <li><a href="#">বিনোদন</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>যোগাযোগ করুন</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> ১২৩ নিউজ স্ট্রিট, ঢাকা ১২১২</li>
+                        <li><i class="fas fa-phone"></i> +৮৮০ ১২৩৪ ৫৬৭৮৯০</li>
+                        <li><i class="fas fa-envelope"></i> contact@ajkerupdate.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; ২০২৫ আজকের আপডেট। সর্বস্বত্ব সংরক্ষিত।
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // তারিখ আপডেট
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const dateString = today.toLocaleDateString('bn-BD', options);
+        const dayNames = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
+        const dayName = dayNames[today.getDay()];
+        
+        document.querySelector('.date-display').innerHTML = `
+            <i class="fas fa-calendar-alt"></i> ${dateString} - ${dayName}
+        `;
+        
+        // ব্রেকিং নিউজ স্ক্রলিং এনিমেশন
+        const breakingText = document.querySelector('.breaking-text');
+        const textWidth = breakingText.scrollWidth;
+        breakingText.style.width = `${textWidth}px`;
+        
+        // মোবাইল মেনু টগল
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if(menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+    </script>
+</body>
+</html>
